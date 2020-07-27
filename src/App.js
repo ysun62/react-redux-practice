@@ -10,6 +10,8 @@ import CartButton from "./components/CartButton";
 function App({ products, fetchProducts }) {
   useEffect(() => {
     fetchProducts();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
