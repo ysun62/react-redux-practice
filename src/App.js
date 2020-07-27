@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-function App() {
+import { fetchProducts } from "./redux/product/productActions";
+import Products from "./components/Products";
+import Product from "./components/Product";
+import CartButton from "./components/CartButton";
+
+function App({ products, fetchProducts }) {
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <BrowserRouter>
+      <header>
+        <CartButton />
       </header>
-    </div>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => <Products products={products} {...props} />}
+        />
+        <Route
+          path={`/product/:id`}
+          render={(props) => <Product data={products.data} {...props} />}
+        />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  products: state.products,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchProducts: () => dispatch(fetchProducts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
