@@ -26,7 +26,7 @@ function Product({ data, match, addProduct, history }) {
       <h2>Product Page</h2>
       {product && (
         <div>
-          <img src={product.image} alt={product} />
+          <img src={require(`../assets/${product.image}`)} alt={product} />
           <h3>{product.title}</h3>
           <div>${product.price}</div>
           <div>

@@ -10,7 +10,7 @@ function Products({ products, history }) {
           return (
             <div style={{ marginTop: "50px" }} key={product.id}>
               <img
-                src={product.image}
+                src={require(`../assets/${product.image}`)}
                 alt="product"
                 style={{ cursor: "pointer" }}
                 onClick={() => history.push(`/product/${product.id}`)}

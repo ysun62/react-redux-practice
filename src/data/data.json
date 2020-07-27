@@ -1,0 +1,7 @@
+[
+  { "id": 1, "title": "Donuts", "price": 19, "image": "donut.jpg" },
+  { "id": 2, "title": "Pizza", "price": 25, "image": "pizza.jpg" },
+  { "id": 3, "title": "Sushi", "price": 40, "image": "sushi.jpg" },
+  { "id": 4, "title": "Burger", "price": 20, "image": "burger.jpg" },
+  { "id": 5, "title": "Noodle", "price": 15, "image": "noodle.jpg" }
+]
