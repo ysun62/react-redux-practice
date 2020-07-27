@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import BackHomeButton from "./BackHomeButton";
+import CartProduct from "./CartProduct";
 
 function Cart({ products, history }) {
   return (
@@ -10,17 +11,7 @@ function Cart({ products, history }) {
       {products &&
         products.map((product) => {
           return (
-            <div key={product.id} style={{ marginTop: "30px" }}>
-              <img
-                src={require(`../assets/${product.image}`)}
-                alt={product}
-                style={{ cursor: "pointer" }}
-                onClick={() => history.push(`/product/${product.id}`)}
-              />
-              <div>{product.title}</div>
-              <div>Quantity: {product.quantity}</div>
-              <div>Price: ${product.totalPrice}</div>
-            </div>
+            <CartProduct key={product.id} product={product} history={history} />
           );
         })}
     </div>
