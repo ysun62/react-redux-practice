@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 
 import { addProduct } from "../redux/cart/cartActions";
 import { calcSubTotal } from "../utils";
+import BackHomeButton from "./BackHomeButton";
 
-function Product({ data, match, addProduct, history }) {
+function Product({ data, match, addProduct }) {
   const [quantity, setQuantity] = useState(1);
 
   const paramId = parseInt(match.params.id);
@@ -17,12 +18,7 @@ function Product({ data, match, addProduct, history }) {
 
   return (
     <div>
-      <button
-        style={{ position: "absolute", left: 0, top: 0 }}
-        onClick={() => history.push(`/`)}
-      >
-        Go Back
-      </button>
+      <BackHomeButton />
       <h2>Product Page</h2>
       {product && (
         <div>

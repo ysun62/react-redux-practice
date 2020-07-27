@@ -6,6 +6,7 @@ import { fetchProducts } from "./redux/product/productActions";
 import Products from "./components/Products";
 import Product from "./components/Product";
 import CartButton from "./components/CartButton";
+import Cart from "./components/Cart";
 
 function App({ products, fetchProducts }) {
   useEffect(() => {
@@ -29,6 +30,7 @@ function App({ products, fetchProducts }) {
           path={`/product/:id`}
           render={(props) => <Product data={products.data} {...props} />}
         />
+        <Route path={`/cart`} render={(props) => <Cart {...props} />} />
       </Switch>
     </BrowserRouter>
   );

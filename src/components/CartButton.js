@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 function CartButton({ cart }) {
   return (
     <>
-      <button>
-        <span>{cart.totalQuantity}</span> &nbsp; Cart
-      </button>
+      <Link to="/cart">
+        <button>
+          <span>{cart.totalQuantity}</span> &nbsp; Cart
+        </button>
+      </Link>
       <h4>Subtotal: ${cart.subTotal}</h4>
     </>
   );
