@@ -1,54 +1,68 @@
-import { ADD_PRODUCT, UPDATE_PRODUCT } from "./cartTypes";
-import { containsProduct } from "../../utils";
+import { ADD_CART_PRODUCT, UPDATE_CART_PRODUCT } from "./cartTypes";
 
 const initialState = {
-  products: [],
+  cartProducts: [],
   totalQuantity: 0,
   subTotal: 0,
 };
 
-const updateProductsState = (state, action) => {
+const updateCartProducts = (state, action) => {
+  const productId = action.payload.product.id;
+  const productNotInCart =
+    state.cartProducts.findIndex((p) => p.id === productId) === -1;
+
   // If product not already in cart, add it to the cart
-  if (!containsProduct(state.products, action.payload.product.id)) {
+  if (productNotInCart) {
     const product = action.payload.product;
     product.quantity = action.payload.quantity;
     product.totalPrice = action.payload.price;
-    return [...state.products, product];
+    return [...state.cartProducts, product];
   }
 
   // If product already in cart, update quantity and totalPrice
   else {
-    const index = state.products.findIndex(
-      (p) => p.id === action.payload.product.id
-    );
-    const product = state.products[index];
-    product.quantity += action.payload.quantity;
-    product.totalPrice += action.payload.price;
-    state.products[index] = product;
-    return [...state.products];
+    return state.cartProducts.map((product) => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          quantity: product.quantity + action.payload.quantity,
+          totalPrice: product.totalPrice + action.payload.price,
+        };
+      }
+
+      return product;
+    });
   }
 };
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PRODUCT:
+    case ADD_CART_PRODUCT:
       return {
-        products: updateProductsState(state, action),
+        cartProducts: updateCartProducts(state, action),
         totalQuantity: state.totalQuantity + action.payload.quantity,
         subTotal: state.subTotal + action.payload.price,
       };
 
-    case UPDATE_PRODUCT:
-      const index = state.products.findIndex((p) => p.id === action.payload.id);
-      const product = state.products[index];
+    case UPDATE_CART_PRODUCT:
+      const product = state.cartProducts.find(
+        (product) => product.id === action.payload.id
+      );
       const prevQuantity = product.quantity;
       const prevTotalPrice = product.totalPrice;
-      product.quantity = action.payload.quantity;
-      product.totalPrice = action.payload.totalPrice;
-      state.products[index] = product;
 
       return {
-        products: [...state.products],
+        cartProducts: state.cartProducts.map((product) => {
+          if (product.id === action.payload.id) {
+            return {
+              ...product,
+              quantity: action.payload.quantity,
+              totalPrice: action.payload.totalPrice,
+            };
+          }
+
+          return product;
+        }),
         totalQuantity:
           state.totalQuantity - prevQuantity + action.payload.quantity,
         subTotal: state.subTotal - prevTotalPrice + action.payload.totalPrice,

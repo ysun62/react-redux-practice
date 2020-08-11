@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { updateProduct } from "../redux/cart/cartActions";
+import { updateCartProduct } from "../redux/cart/cartActions";
 import { calcSubTotal } from "../utils";
 
-function CartProduct({ product, history, updateProduct }) {
-  const [number, setNumber] = useState(product.quantity);
+function CartProduct({ product, history, updateCartProduct }) {
+  const [quantity, setQuantity] = useState(product.quantity);
 
-  const totalPrice = calcSubTotal(number, product.price);
+  const totalPrice = calcSubTotal(quantity, product.price);
 
   const onUpdate = () => {
-    if (number !== product.quantity)
-      updateProduct(number, totalPrice, product.id);
+    if (quantity !== product.quantity)
+      updateCartProduct(quantity, totalPrice, product.id);
   };
 
   return (
@@ -29,8 +29,8 @@ function CartProduct({ product, history, updateProduct }) {
         <input
           type="number"
           min="1"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
       <div>Total: ${totalPrice}</div>
@@ -40,8 +40,8 @@ function CartProduct({ product, history, updateProduct }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  updateProduct: (number, totalPrice, id) =>
-    dispatch(updateProduct(number, totalPrice, id)),
+  updateCartProduct: (number, totalPrice, id) =>
+    dispatch(updateCartProduct(number, totalPrice, id)),
 });
 
 export default connect(null, mapDispatchToProps)(CartProduct);

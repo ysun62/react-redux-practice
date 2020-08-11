@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import BackHomeButton from "./BackHomeButton";
 import CartProduct from "./CartProduct";
 
-function Cart({ products, history }) {
+function Cart({ cartProducts, history }) {
   return (
     <div>
       <BackHomeButton />
       <h2>Cart Page</h2>
-      {products &&
-        products.map((product) => {
+      {cartProducts &&
+        cartProducts.map((product) => {
           return (
             <CartProduct key={product.id} product={product} history={history} />
           );
@@ -19,7 +19,7 @@ function Cart({ products, history }) {
 }
 
 const mapStateToProps = (state) => ({
-  products: state.cart && state.cart.products,
+  cartProducts: state.cart.cartProducts,
 });
 
 export default connect(mapStateToProps)(Cart);

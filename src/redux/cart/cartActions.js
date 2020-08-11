@@ -1,15 +1,15 @@
-import { ADD_PRODUCT, UPDATE_PRODUCT } from "./cartTypes";
+import { ADD_CART_PRODUCT, UPDATE_CART_PRODUCT } from "./cartTypes";
 
 export const addProduct = (quantity, price, product) => (dispatch) => {
   dispatch({
-    type: ADD_PRODUCT,
+    type: ADD_CART_PRODUCT,
     payload: { quantity: parseInt(quantity), price: parseInt(price), product },
   });
 };
 
-export const updateProduct = (quantity, totalPrice, id) => (dispatch) => {
+export const updateCartProduct = (quantity, totalPrice, id) => (dispatch) => {
   dispatch({
-    type: UPDATE_PRODUCT,
+    type: UPDATE_CART_PRODUCT,
     payload: {
       quantity: parseInt(quantity),
       totalPrice: parseInt(totalPrice),
